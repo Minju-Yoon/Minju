@@ -39,6 +39,7 @@
   // DOM Elements Selection
   // =========================================================================
   const dom = {
+    uploadSection: document.getElementById('upload-section'),
     dropZone: document.getElementById('drop-zone'),
     fileInput: document.getElementById('file-input'),
     btnLoadSample: document.getElementById('btn-load-sample'),
@@ -621,6 +622,7 @@
     dom.fileCountBadge.textContent = count;
 
     if (count === 0) {
+      if (dom.uploadSection) dom.uploadSection.classList.remove('has-files');
       dom.fileManagerContainer.classList.add('hidden');
       dom.emptyState.classList.remove('hidden');
       dom.dashboardContent.classList.add('hidden');
@@ -628,6 +630,7 @@
       return;
     }
 
+    if (dom.uploadSection) dom.uploadSection.classList.add('has-files');
     dom.fileManagerContainer.classList.remove('hidden');
     dom.emptyState.classList.add('hidden');
     dom.dashboardContent.classList.remove('hidden');
@@ -908,7 +911,7 @@
   }
 
   function renderHistogramChart(colName, stats) {
-    // Render mini-kpi cards below the chart
+    // Render rich 3x3 sub-kpi matrix beside the chart
     dom.mergedColumnKpis.innerHTML = `
       <div class="sub-kpi-item">
         <span class="sub-kpi-title">평균 (Mean)</span>
@@ -919,16 +922,32 @@
         <span class="sub-kpi-value">${formatNumber(stats.median, 2)}</span>
       </div>
       <div class="sub-kpi-item">
+        <span class="sub-kpi-title">최빈값 (Mode)</span>
+        <span class="sub-kpi-value">${typeof stats.mode === 'number' ? formatNumber(stats.mode, 2) : stats.mode}</span>
+      </div>
+      <div class="sub-kpi-item">
         <span class="sub-kpi-title">표준편차 (Std Dev)</span>
         <span class="sub-kpi-value">${formatNumber(stats.stdDev, 2)}</span>
+      </div>
+      <div class="sub-kpi-item">
+        <span class="sub-kpi-title">표본 분산 (Variance)</span>
+        <span class="sub-kpi-value">${formatNumber(stats.variance, 2)}</span>
+      </div>
+      <div class="sub-kpi-item">
+        <span class="sub-kpi-title">변동계수 (CV)</span>
+        <span class="sub-kpi-value">${stats.cv ? stats.cv.toFixed(1) + '%' : '-'}</span>
       </div>
       <div class="sub-kpi-item">
         <span class="sub-kpi-title">사분위범위 (IQR)</span>
         <span class="sub-kpi-value">${formatNumber(stats.iqr, 2)}</span>
       </div>
       <div class="sub-kpi-item">
-        <span class="sub-kpi-title">최솟값 ~ 최댓값</span>
-        <span class="sub-kpi-value">${formatNumber(stats.min, 1)} ~ ${formatNumber(stats.max, 1)}</span>
+        <span class="sub-kpi-title">Q1 / Q3 (사분위수)</span>
+        <span class="sub-kpi-value">${formatNumber(stats.q1, 1)} / ${formatNumber(stats.q3, 1)}</span>
+      </div>
+      <div class="sub-kpi-item">
+        <span class="sub-kpi-title">최솟값 ~ 최댓값 (범위)</span>
+        <span class="sub-kpi-value">${formatNumber(stats.min, 1)} ~ ${formatNumber(stats.max, 1)} (${formatNumber(stats.range, 1)})</span>
       </div>
     `;
 

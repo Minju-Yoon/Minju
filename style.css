@@ -1,6 +1,6 @@
 /* ==========================================================================
-   ExcelStat Pro - Design System & Modern Stylesheet
-   Pure Vanilla CSS with CSS Variables, Dark/Light Theme & Glassmorphism
+   ExcelStat Pro - High-Density Design System & Modern Stylesheet
+   Maximized space efficiency, 2-column analytics splits & compact layout
    ========================================================================== */
 
 :root {
@@ -39,19 +39,19 @@
   --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.45);
   --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.25);
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-full: 9999px;
 
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Light Theme Overrides */
 body.light-theme {
   --bg-main: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card: rgba(255, 255, 255, 0.9);
   --bg-card-hover: #f1f5f9;
   --bg-glass: rgba(0, 0, 0, 0.03);
   --border-color: #e2e8f0;
@@ -84,18 +84,18 @@ body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.45;
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 code {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  padding: 2px 6px;
+  padding: 1px 5px;
   background: var(--bg-glass);
   border-radius: var(--radius-sm);
   color: var(--primary);
@@ -106,7 +106,7 @@ code {
 }
 
 /* ==========================================================================
-   Header Component
+   Header Component (Compact & Wide)
    ========================================================================== */
 
 .app-header {
@@ -117,50 +117,51 @@ code {
   -webkit-backdrop-filter: blur(14px);
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
-  padding: 0.75rem 1.5rem;
+  padding: 0.55rem 1.25rem;
   box-shadow: var(--shadow-sm);
 }
 
 .header-container {
-  max-width: 1440px;
+  max-width: 1760px;
+  width: 98%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .brand-area {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
 .logo-icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #6366f1, #3b82f6);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 3px 8px rgba(99, 102, 241, 0.4);
 }
 
 .brand-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
 }
 
 .badge-pro {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  padding: 2px 6px;
+  padding: 1px 5px;
   background: linear-gradient(135deg, #ec4899, #8b5cf6);
   color: #fff;
   border-radius: var(--radius-sm);
@@ -168,29 +169,29 @@ code {
 }
 
 .brand-subtitle {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 /* ==========================================================================
-   Button Components
+   Buttons
    ========================================================================== */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.55rem 1rem;
+  padding: 0.45rem 0.85rem;
   border-radius: var(--radius-md);
   cursor: pointer;
   border: 1px solid transparent;
@@ -208,12 +209,12 @@ code {
 .btn-primary {
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, #4f46e5, #4338ca);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.45);
   transform: translateY(-1px);
 }
 
@@ -240,8 +241,8 @@ code {
 }
 
 .btn-icon {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   border-radius: var(--radius-md);
   background: var(--bg-surface);
@@ -255,8 +256,8 @@ code {
 }
 
 .btn-xs {
-  font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.5rem;
   border-radius: var(--radius-sm);
 }
 
@@ -288,40 +289,56 @@ code {
 }
 
 /* ==========================================================================
-   Main Content Layout
+   Main Content Layout (Full Width & Dense)
    ========================================================================== */
 
 .main-content {
   flex: 1;
-  max-width: 1440px;
-  width: 100%;
+  max-width: 1760px;
+  width: 98%;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 0.85rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.85rem;
 }
 
 /* ==========================================================================
-   Upload & Drop Zone
+   Upload Section: Dynamic Compact / Split Mode
    ========================================================================== */
 
 .upload-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+  transition: var(--transition);
+}
+
+/* When files are uploaded, drop zone & file manager become a space-efficient 2-column row */
+.upload-section.has-files {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: stretch;
+  gap: 0.75rem;
 }
 
 .drop-zone {
   position: relative;
   background: var(--bg-surface);
-  border: 2px dashed var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 2.2rem 1.5rem;
+  border: 1.5px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1rem;
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-section.has-files .drop-zone {
+  padding: 0.75rem 0.85rem;
 }
 
 .drop-zone::before {
@@ -357,50 +374,60 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
 }
 
 .upload-icon-wrapper {
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   background: var(--primary-light);
   color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.3rem;
   transition: var(--transition);
 }
 
-.drop-zone:hover .upload-icon-wrapper {
-  transform: translateY(-3px) scale(1.05);
+.upload-section.has-files .upload-icon-wrapper {
+  width: 32px;
+  height: 32px;
 }
 
 .upload-title {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
+.upload-section.has-files .upload-title {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
 .upload-desc {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
-  max-width: 620px;
+  max-width: 580px;
+}
+
+.upload-section.has-files .upload-desc,
+.upload-section.has-files .upload-meta-badges {
+  display: none;
 }
 
 .upload-meta-badges {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
 }
 
 .meta-tag {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 2px 7px;
   background: var(--bg-glass);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-full);
@@ -408,100 +435,111 @@ code {
 }
 
 /* ==========================================================================
-   File Manager Tray
+   File Manager Tray (Dense)
    ========================================================================== */
 
 .file-manager-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
+  padding: 0.65rem 0.9rem;
   box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .file-manager-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--border-color);
 }
 
+.fm-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
 .fm-title-group h3 {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
 .fm-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-secondary);
 }
 
 .fm-controls {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .file-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.5rem;
+  max-height: 110px;
+  overflow-y: auto;
 }
 
 .file-card-item {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
   transition: var(--transition);
 }
 
 .file-card-item.disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   filter: grayscale(0.8);
 }
 
 .file-card-item:hover {
   border-color: var(--border-focus);
-  box-shadow: var(--shadow-sm);
 }
 
 .fc-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .fc-info {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   overflow: hidden;
 }
 
 .fc-icon {
   color: var(--success);
   flex-shrink: 0;
+  width: 14px;
+  height: 14px;
 }
 
 .fc-name {
-  font-size: 0.825rem;
+  font-size: 0.78rem;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 170px;
+  max-width: 150px;
 }
 
 .fc-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
 }
 
 .btn-remove-file {
@@ -524,86 +562,84 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   color: var(--text-secondary);
   border-top: 1px dashed var(--border-color);
-  padding-top: 0.4rem;
+  padding-top: 0.25rem;
 }
 
 .fc-sheet-select {
-  font-size: 0.72rem;
-  padding: 2px 4px;
+  font-size: 0.68rem;
+  padding: 1px 3px;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  max-width: 110px;
+  max-width: 95px;
 }
 
 /* ==========================================================================
-   Empty State Panel
+   Empty State Panel (Compact)
    ========================================================================== */
 
 .empty-state-panel {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 3.5rem 1.5rem;
+  padding: 2.5rem 1.25rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .empty-illustration {
   color: var(--text-muted);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .empty-state-panel h3 {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
 .empty-state-panel p {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 /* ==========================================================================
-   KPI Summary Grid
+   KPI Summary Grid (Compact & Dense)
    ========================================================================== */
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
 }
 
 .kpi-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1.1rem 1.25rem;
+  padding: 0.65rem 0.95rem;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .kpi-card:hover {
-  transform: translateY(-2px);
   border-color: var(--border-focus);
-  box-shadow: var(--shadow-md);
 }
 
 .kpi-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -616,33 +652,40 @@ code {
 .kpi-icon-box.amber { background: var(--warning-light); color: var(--warning); }
 
 .kpi-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
+.kpi-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .kpi-label {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-secondary);
 }
 
 .kpi-value {
   font-family: var(--font-mono);
-  font-size: 1.55rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.2;
-  margin: 2px 0;
+  line-height: 1.15;
+  margin: 1px 0;
 }
 
 .kpi-value .unit {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .kpi-foot {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
 }
 
@@ -657,7 +700,7 @@ code {
 
 .tabs-list {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
   min-width: max-content;
 }
 
@@ -665,13 +708,13 @@ code {
   background: transparent;
   border: none;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: var(--text-secondary);
-  padding: 0.75rem 1.1rem;
+  padding: 0.55rem 0.9rem;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: var(--transition);
@@ -687,14 +730,14 @@ code {
 }
 
 /* ==========================================================================
-   Tab Panes & Panel Cards
+   Panel Cards & Split Grids
    ========================================================================== */
 
 .tab-pane {
   display: none;
   flex-direction: column;
-  gap: 1.25rem;
-  animation: fadeIn 0.25s ease forwards;
+  gap: 0.85rem;
+  animation: fadeIn 0.2s ease forwards;
 }
 
 .tab-pane.active {
@@ -702,67 +745,62 @@ code {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .panel-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1.35rem 1.5rem;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.15rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.75rem;
 }
 
 .panel-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
 .panel-title-wrap h3 {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.panel-title-wrap h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
 .panel-title-wrap p {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .panel-controls {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
 .filter-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .control-group {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .control-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -770,9 +808,9 @@ code {
 
 .form-select, .form-input {
   font-family: var(--font-sans);
-  font-size: 0.825rem;
-  padding: 0.45rem 0.8rem;
-  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   background: var(--bg-card);
   color: var(--text-primary);
@@ -786,80 +824,140 @@ code {
 }
 
 /* ==========================================================================
-   Chart Canvas Container & Sub KPIs
+   2-Column Split Analytics Layouts (Maximizes Space Utilization)
    ========================================================================== */
 
-.chart-canvas-container {
+/* TAB 1: Distribution Chart (Left) + Stats Matrix (Right) */
+.split-2col-dist {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.compact-chart-container {
   position: relative;
-  height: 320px;
+  height: 260px;
   width: 100%;
 }
 
-.sub-kpis-grid {
+.sub-kpis-matrix {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.75rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--border-color);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+  align-content: stretch;
 }
 
 .sub-kpi-item {
   background: var(--bg-glass);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  padding: 0.6rem 0.8rem;
+  padding: 0.45rem 0.65rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .sub-kpi-title {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-secondary);
 }
 
 .sub-kpi-value {
   font-family: var(--font-mono);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--primary);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
-/* Categorical Split Grid */
+/* TAB 2: Comparison Chart (Left) + Comparison Table (Right) */
+.split-2col-compare {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.compare-chart-box {
+  position: relative;
+  height: 280px;
+  width: 100%;
+}
+
+.compare-table-box {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+/* TAB 4: Correlation Matrix (Left) + Scatter Plot (Right) */
+.split-2col-corr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.corr-matrix-box {
+  max-height: 380px;
+  overflow: auto;
+}
+
+.corr-scatter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scatter-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+}
+
+.scatter-chart-box {
+  position: relative;
+  height: 320px;
+  width: 100%;
+}
+
+/* Categorical Grid */
 .cat-analysis-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1rem;
   align-items: center;
 }
 
 .cat-chart-box {
   position: relative;
-  height: 280px;
-}
-
-@media (max-width: 900px) {
-  .cat-analysis-grid {
-    grid-template-columns: 1fr;
-  }
+  height: 230px;
 }
 
 /* ==========================================================================
-   Data Table Component
+   High-Density Data Tables
    ========================================================================== */
 
 .table-responsive {
   width: 100%;
   overflow-x: auto;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--bg-card);
 }
+
+.table-scroll-sm { max-height: 240px; overflow-y: auto; }
+.table-scroll-md { max-height: 380px; overflow-y: auto; }
+.table-scroll-lg { max-height: 480px; overflow-y: auto; }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.825rem;
+  font-size: 0.78rem;
   text-align: right;
   white-space: nowrap;
 }
@@ -868,8 +966,8 @@ code {
   background: var(--bg-surface);
   color: var(--text-secondary);
   font-weight: 700;
-  font-size: 0.775rem;
-  padding: 0.65rem 0.85rem;
+  font-size: 0.72rem;
+  padding: 0.45rem 0.65rem;
   border-bottom: 2px solid var(--border-color);
   position: sticky;
   top: 0;
@@ -879,7 +977,7 @@ code {
 }
 
 .data-table td {
-  padding: 0.55rem 0.85rem;
+  padding: 0.35rem 0.65rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-primary);
   font-family: var(--font-mono);
@@ -897,38 +995,38 @@ code {
 
 .data-table .col-badge {
   display: inline-block;
-  font-size: 0.7rem;
-  padding: 1px 6px;
+  font-size: 0.65rem;
+  padding: 1px 5px;
   border-radius: var(--radius-sm);
   background: var(--primary-light);
   color: var(--primary);
   font-family: var(--font-sans);
-  margin-left: 4px;
+  margin-left: 3px;
 }
 
 /* Correlation Heatmap Table */
 .corr-table th, .corr-table td {
   text-align: center;
   font-family: var(--font-mono);
-  padding: 0.65rem;
+  padding: 0.45rem 0.5rem;
   border: 1px solid var(--border-color);
 }
 
 .corr-cell {
   font-weight: 700;
-  border-radius: 4px;
-  transition: transform 0.15s ease;
+  border-radius: 3px;
+  transition: transform 0.12s ease;
   cursor: pointer;
 }
 
 .corr-cell:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
   box-shadow: var(--shadow-sm);
 }
 
 .legend-badge {
-  font-size: 0.72rem;
-  padding: 3px 8px;
+  font-size: 0.68rem;
+  padding: 2px 6px;
   border-radius: var(--radius-sm);
   font-weight: 600;
 }
@@ -941,12 +1039,12 @@ code {
 .file-meta-banner {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0.75rem 1rem;
+  gap: 1.25rem;
+  padding: 0.5rem 0.85rem;
   background: var(--bg-glass);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
@@ -960,29 +1058,25 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.2rem;
+  padding: 0.4rem 0.2rem;
 }
 
 .page-info {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
 }
 
 .page-btns {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .page-current {
   font-family: var(--font-mono);
-  font-size: 0.825rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 0 4px;
-}
-
-.mt-20 {
-  margin-top: 1.25rem;
+  padding: 0 3px;
 }
 
 /* ==========================================================================
@@ -992,13 +1086,13 @@ code {
 .app-footer {
   margin-top: auto;
   border-top: 1px solid var(--border-color);
-  padding: 1.25rem 1.5rem;
+  padding: 0.85rem 1.25rem;
   text-align: center;
   background: var(--bg-surface);
 }
 
 .footer-content p {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
 }
 
@@ -1006,7 +1100,30 @@ code {
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .split-2col-dist,
+  .split-2col-compare,
+  .split-2col-corr {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .upload-section.has-files {
+    grid-template-columns: 1fr;
+  }
+  .cat-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
   .header-container {
     flex-direction: column;
     align-items: flex-start;
@@ -1015,14 +1132,5 @@ code {
     width: 100%;
     justify-content: flex-start;
     overflow-x: auto;
-  }
-  .drop-zone {
-    padding: 1.5rem 1rem;
-  }
-  .chart-canvas-container {
-    height: 250px;
-  }
-  .kpi-grid {
-    grid-template-columns: 1fr;
   }
 }
