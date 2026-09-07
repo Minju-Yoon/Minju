@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExcelStat Pro - 엑셀 다중 파일 통계 분석 웹 앱</title>
+  <meta name="description" content="여러 개의 엑셀 파일을 업로드하여 통합 통계, 파일 간 비교 분석, 상관관계 분석 및 인터랙티브 시각화를 제공하는 노빌드 정적 웹 애플리케이션">
+  
+  <!-- Pretendard & Inter Web Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- SheetJS (xlsx) CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-area">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">ExcelStat <span class="badge-pro">PRO</span></h1>
+          <p class="brand-subtitle">다중 엑셀 통합 & 비교 통계 분석 대시보드</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-load-sample" class="btn btn-secondary" title="샘플 엑셀 파일 3종을 즉시 불러와 테스트합니다">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>샘플 데이터로 체험하기</span>
+        </button>
+
+        <button id="btn-export-excel" class="btn btn-primary" disabled title="통계 분석 요약 결과를 엑셀 파일로 다운로드합니다">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+            <path d="M12 12v9"></path>
+            <path d="m8 17 4 4 4-4"></path>
+          </svg>
+          <span>통계 결과 엑셀 저장</span>
+        </button>
+
+        <button id="btn-clear-all" class="btn btn-ghost" title="모든 파일 및 분석 데이터를 초기화합니다">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>전체 비우기</span>
+        </button>
+
+        <button id="btn-toggle-theme" class="btn btn-icon" title="다크/라이트 모드 전환">
+          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg id="theme-icon-sun" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="main-content">
+    
+    <!-- Upload Section -->
+    <section class="upload-section">
+      <div id="drop-zone" class="drop-zone">
+        <input type="file" id="file-input" multiple accept=".xlsx, .xls, .csv" class="file-input-hidden">
+        <div class="drop-zone-content">
+          <div class="upload-icon-wrapper">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h2 class="upload-title">엑셀 파일을 이곳으로 드래그하거나 클릭하여 추가하세요</h2>
+          <p class="upload-desc">
+            여러 개의 <code>.xlsx</code>, <code>.xls</code>, <code>.csv</code> 파일을 한 번에 업로드하여 통합 분석 및 파일 간 상호 비교를 진행할 수 있습니다.
+          </p>
+          <div class="upload-meta-badges">
+            <span class="meta-tag">다중 파일 지원</span>
+            <span class="meta-tag">클라이언트 100% 로컬 처리 (보안 안전)</span>
+            <span class="meta-tag">무제한 컬럼 통계</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- File Manager Tray -->
+      <div id="file-manager-container" class="file-manager-card hidden">
+        <div class="file-manager-header">
+          <div class="fm-title-group">
+            <h3>업로드된 파일 목록 (<span id="file-count">0</span>개)</h3>
+            <span class="fm-subtitle">통계 계산에 포함할 파일을 선택하거나 시트를 변경할 수 있습니다.</span>
+          </div>
+          <div class="fm-controls">
+            <button id="btn-select-all-files" class="btn btn-xs btn-outline">전체 선택</button>
+            <button id="btn-deselect-all-files" class="btn btn-xs btn-outline">전체 해제</button>
+          </div>
+        </div>
+        <div id="file-cards-list" class="file-cards-grid">
+          <!-- Dynamically populated file cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty State Prompt -->
+    <section id="empty-state" class="empty-state-panel">
+      <div class="empty-illustration">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+      </div>
+      <h3>분석할 엑셀 파일이 대기 중입니다</h3>
+      <p>상단 영역에 엑셀 파일들을 드래그하거나 <button id="btn-empty-sample" class="link-btn">샘플 데이터 불러오기</button>를 눌러 즉시 결과를 확인해 보세요.</p>
+    </section>
+
+    <!-- Dashboard Content (Visible after files loaded) -->
+    <div id="dashboard-content" class="dashboard-content hidden">
+
+      <!-- Overall KPI Cards Grid -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-box blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">분석 대상 파일</span>
+            <div class="kpi-value" id="kpi-files-count">0 <span class="unit">개</span></div>
+            <span class="kpi-foot" id="kpi-files-detail">활성화 0 / 전체 0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-box green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">총 데이터 행 수</span>
+            <div class="kpi-value" id="kpi-total-rows">0 <span class="unit">행</span></div>
+            <span class="kpi-foot" id="kpi-avg-rows">파일당 평균 0행</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-box purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">수치형 통계 변수</span>
+            <div class="kpi-value" id="kpi-numeric-cols">0 <span class="unit">개</span></div>
+            <span class="kpi-foot" id="kpi-total-cols">전체 컬럼 중 수치형 계산</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-box amber">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">결측치 (Missing)</span>
+            <div class="kpi-value" id="kpi-missing-rate">0.0 <span class="unit">%</span></div>
+            <span class="kpi-foot" id="kpi-missing-count">총 0건 결측 셀</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs-container">
+        <div class="tabs-list">
+          <button class="tab-btn active" data-tab="tab-merged">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            <span>통합 기술 통계</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-compare">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span>파일 간 비교 분석</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-individual">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>개별 파일 상세 분석</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-correlation">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            <span>상관관계 분석</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-preview">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+            <span>데이터 미리보기</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- TAB 1: 통합 기술 통계 (Merged Analysis) -->
+      <section id="tab-merged" class="tab-pane active">
+        <!-- Interactive Chart & Distribution Toolbar -->
+        <div class="panel-card chart-panel">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>통합 데이터 분포 시각화</h3>
+              <p>선택한 수치형 컬럼의 히스토그램 및 주요 통계 지표(평균, 중앙값) 위치를 확인합니다.</p>
+            </div>
+            <div class="panel-controls">
+              <label for="merged-col-select" class="control-label">분석 대상 컬럼:</label>
+              <select id="merged-col-select" class="form-select"></select>
+            </div>
+          </div>
+          <div class="chart-canvas-container">
+            <canvas id="merged-dist-chart"></canvas>
+          </div>
+          <div id="merged-column-kpis" class="sub-kpis-grid">
+            <!-- Populated via JS for selected column -->
+          </div>
+        </div>
+
+        <!-- Descriptive Statistics Table -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>수치형 변수 전체 기술통계표</h3>
+              <p>활성화된 모든 파일의 동일 컬럼 데이터를 병합하여 산출한 종합 기술통계 요약입니다.</p>
+            </div>
+            <div class="panel-controls">
+              <input type="text" id="stats-search-input" class="form-input" placeholder="컬럼명 검색...">
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="merged-stats-table">
+              <thead>
+                <tr>
+                  <th class="text-left">컬럼명</th>
+                  <th>유효 표본 (N)</th>
+                  <th>결측치 (율)</th>
+                  <th>합계 (Sum)</th>
+                  <th>평균 (Mean)</th>
+                  <th>중앙값 (Median)</th>
+                  <th>최빈값 (Mode)</th>
+                  <th>표준편차 (Std)</th>
+                  <th>최솟값 (Min)</th>
+                  <th>제1사분위 (Q1)</th>
+                  <th>제3사분위 (Q3)</th>
+                  <th>최댓값 (Max)</th>
+                  <th>IQR</th>
+                  <th>변동계수 (CV)</th>
+                </tr>
+              </thead>
+              <tbody id="merged-stats-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Categorical Variables Summary -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>범주형(텍스트) 변수 요약 및 빈도 분포</h3>
+              <p>고유 범주 수 및 최다 빈도 항목, 분포 비율을 분석합니다.</p>
+            </div>
+            <div class="panel-controls">
+              <select id="merged-cat-col-select" class="form-select"></select>
+            </div>
+          </div>
+          <div class="cat-analysis-grid">
+            <div class="cat-chart-box">
+              <canvas id="merged-cat-chart"></canvas>
+            </div>
+            <div class="cat-table-box table-responsive">
+              <table class="data-table" id="merged-cat-table">
+                <thead>
+                  <tr>
+                    <th class="text-left">범주 항목</th>
+                    <th>출현 빈도수</th>
+                    <th>점유율 (%)</th>
+                  </tr>
+                </thead>
+                <tbody id="merged-cat-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: 파일 간 비교 분석 (Comparative Analysis) -->
+      <section id="tab-compare" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>파일 간 지표 교차 비교</h3>
+              <p>여러 파일(예: 월별, 분기별, 지점별) 간의 동일 변수 통계치 차이를 다각도로 비교합니다.</p>
+            </div>
+            <div class="panel-controls filter-row">
+              <div class="control-group">
+                <label for="compare-col-select" class="control-label">비교 변수:</label>
+                <select id="compare-col-select" class="form-select"></select>
+              </div>
+              <div class="control-group">
+                <label for="compare-metric-select" class="control-label">비교 지표:</label>
+                <select id="compare-metric-select" class="form-select">
+                  <option value="mean">평균 (Mean)</option>
+                  <option value="sum">합계 (Sum)</option>
+                  <option value="median">중앙값 (Median)</option>
+                  <option value="std">표준편차 (Std Dev)</option>
+                  <option value="min">최솟값 (Min)</option>
+                  <option value="max">최댓값 (Max)</option>
+                  <option value="count">데이터 건수 (N)</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="compare-chart-type" class="control-label">차트 유형:</label>
+                <select id="compare-chart-type" class="form-select">
+                  <option value="bar">막대 차트 (Bar)</option>
+                  <option value="line">꺾은선 추세 (Line)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-canvas-container">
+            <canvas id="compare-chart"></canvas>
+          </div>
+
+          <!-- Comparison Table -->
+          <div class="table-responsive mt-20">
+            <table class="data-table" id="compare-matrix-table">
+              <thead>
+                <tr>
+                  <th class="text-left">파일 이름</th>
+                  <th>데이터 건수</th>
+                  <th>합계 (Sum)</th>
+                  <th>평균 (Mean)</th>
+                  <th>중앙값 (Median)</th>
+                  <th>표준편차 (Std)</th>
+                  <th>최솟값 (Min)</th>
+                  <th>최댓값 (Max)</th>
+                  <th>전체 대비 평균 편차</th>
+                </tr>
+              </thead>
+              <tbody id="compare-matrix-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: 개별 파일 상세 분석 (Individual File Deep-Dive) -->
+      <section id="tab-individual" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>개별 파일 심층 분석기</h3>
+              <p>특정 엑셀 파일을 선택하여 해당 파일 내 모든 컬럼의 통계치를 정밀 검토합니다.</p>
+            </div>
+            <div class="panel-controls">
+              <label for="individual-file-select" class="control-label">선택 파일:</label>
+              <select id="individual-file-select" class="form-select"></select>
+            </div>
+          </div>
+
+          <div id="individual-file-meta" class="file-meta-banner">
+            <!-- Populated via JS -->
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="individual-stats-table">
+              <thead>
+                <tr>
+                  <th class="text-left">컬럼명</th>
+                  <th>유형</th>
+                  <th>유효 N</th>
+                  <th>결측 N (%)</th>
+                  <th>평균</th>
+                  <th>표준편차</th>
+                  <th>중앙값</th>
+                  <th>최솟값</th>
+                  <th>최댓값</th>
+                  <th>사분위범위(IQR)</th>
+                </tr>
+              </thead>
+              <tbody id="individual-stats-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: 변수 간 상관관계 분석 (Correlation Matrix) -->
+      <section id="tab-correlation" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>수치형 변수 간 피어슨 상관계수 행렬 (Pearson Correlation Matrix)</h3>
+              <p>두 수치 변수 사이의 선형 상관성(-1.0 ~ +1.0)을 계산하고 히트맵 카드로 시각화합니다.</p>
+            </div>
+            <div class="panel-controls">
+              <span class="legend-badge corr-pos">양의 상관관계 (+0.5 ~ +1.0)</span>
+              <span class="legend-badge corr-zero">약한 상관관계 (-0.3 ~ +0.3)</span>
+              <span class="legend-badge corr-neg">음의 상관관계 (-1.0 ~ -0.5)</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table corr-table" id="correlation-matrix-table">
+              <!-- Populated with heatmap colors -->
+            </table>
+          </div>
+
+          <div class="corr-scatter-section mt-20">
+            <div class="panel-card-header">
+              <div class="panel-title-wrap">
+                <h4>변수 쌍 산점도 (Scatter Plot)</h4>
+                <p>두 변수 간의 분포와 추세를 산점도로 확인합니다.</p>
+              </div>
+              <div class="panel-controls filter-row">
+                <div class="control-group">
+                  <label for="corr-x-col" class="control-label">X축 변수:</label>
+                  <select id="corr-x-col" class="form-select"></select>
+                </div>
+                <div class="control-group">
+                  <label for="corr-y-col" class="control-label">Y축 변수:</label>
+                  <select id="corr-y-col" class="form-select"></select>
+                </div>
+              </div>
+            </div>
+            <div class="chart-canvas-container">
+              <canvas id="correlation-scatter-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: 데이터 미리보기 (Data Preview) -->
+      <section id="tab-preview" class="tab-pane">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <div class="panel-title-wrap">
+              <h3>데이터 원본 미리보기</h3>
+              <p>통합 데이터 또는 개별 파일의 원본 데이터를 검색하고 정렬할 수 있습니다.</p>
+            </div>
+            <div class="panel-controls filter-row">
+              <div class="control-group">
+                <label for="preview-dataset-select" class="control-label">데이터셋 선택:</label>
+                <select id="preview-dataset-select" class="form-select">
+                  <option value="__merged__">통합 데이터 전체 (Merged)</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <input type="text" id="preview-search-input" class="form-input" placeholder="데이터 내용 검색...">
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+            <table class="data-table preview-table" id="preview-data-table">
+              <thead id="preview-thead"></thead>
+              <tbody id="preview-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="pagination-bar">
+            <div class="page-info" id="preview-page-info">1 - 50 / 0건 표시 중</div>
+            <div class="page-btns">
+              <button id="btn-prev-page" class="btn btn-xs btn-outline">이전</button>
+              <span id="preview-page-num" class="page-current">1</span>
+              <button id="btn-next-page" class="btn btn-xs btn-outline">다음</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>ExcelStat Pro • Pure HTML5 / CSS3 / Vanilla JS • 클라이언트 브라우저에서 안전하게 실행됩니다.</p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
